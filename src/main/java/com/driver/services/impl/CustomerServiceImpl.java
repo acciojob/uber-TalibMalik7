@@ -44,8 +44,8 @@ public class CustomerServiceImpl implements CustomerService {
 		Driver driver = null;
 		List<Driver> driverList = driverRe.findAll();
 		for(Driver driver1 : driverList){
-			if(driver1.getCab().getAvailable() == true){
-				if(driver == null || driver.getDriverId() > driver1.getDriverId()){
+			if(driver1.getCab().getAvailable()){
+				if(driver == null || driver1.getDriverId() < driver.getDriverId()){
 					driver = driver1;
 				}
 			}
@@ -93,6 +93,6 @@ public class CustomerServiceImpl implements CustomerService {
 		tripBooking.getDriver().getCab().setAvailable(true);
 		tripBooking.setBill(bill);
 
-		tripBookingRe.save(tripBooking);
+		driverRe.save(tripBooking.getDriver());
 	}
 }
